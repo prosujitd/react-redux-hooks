@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar{
+  background-color:rgba(0, 0, 255, 0.324);
+}
+
+.footer{
+  background-color: #61dafb;
+}
+
+.active-link{
+  background-color: rgba(0, 175, 73, 0.756);
+}
+
+.btn-navbar:hover{
+  background-color: orange;
+}
