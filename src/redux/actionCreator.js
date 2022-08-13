@@ -1,1 +1,5 @@
-export {fetchProducts, fetchProductRequest} from "./product/productAction";
+
+export {addToCart} from "./cart/cartAction.js";
+
+
+export {fetchProducts} from "./product/productAction";

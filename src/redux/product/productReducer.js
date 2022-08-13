@@ -9,7 +9,6 @@ const initialState = {
   isLoading: false,
   products: [],
   error: "",
-  tester: 'tester msg'
 };
 
 const productReducer = (state = initialState, action) => {

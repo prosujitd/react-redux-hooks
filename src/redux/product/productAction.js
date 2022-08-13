@@ -5,7 +5,7 @@ import {
   FETCH_PRODUCT_SUCCESS,
 } from "./productTypes";
 
-export const fetchProductRequest = () => {
+const fetchProductRequest = () => {
   return {
     type: FETCH_PRODUCT_REQUEST,
   };
