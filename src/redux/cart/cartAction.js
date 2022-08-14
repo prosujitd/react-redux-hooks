@@ -1,10 +1,17 @@
 import React from "react";
-import { ADD_TO_CART } from "./cartTypes";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "./cartTypes";
 
 function addtoCartRequest(product) {
   return {
     type: ADD_TO_CART,
     payload: product,
+  };
+}
+
+function removeFromCartRequest(id) {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: id,
   };
 }
 
@@ -23,15 +30,14 @@ function addtoCartRequest(product) {
 // }
 
 export const addToCart = (product) => {
-    console.log('add to cart > ', product);
   return (dispatch) => {
     dispatch(addtoCartRequest(product));
   };
 };
 
 
-// export const removeFromCart = (product) => {
-//   return (dispatch) => {
-//     addtoCartRequest(product);
-//   };
-// };
+export const removeFromCart = (id) => {
+  return (dispatch) => {
+    dispatch(removeFromCartRequest(id));
+  };
+};

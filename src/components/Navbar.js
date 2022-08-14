@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import CurrentlyOnCart from "./CurrentlyOnCart";
 
 const Navbar = () => {
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg ">
@@ -19,7 +20,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <a className="navbar-brand" href="#">
-            Redux-createStore
+            Redux-eCommerce
           </a>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
