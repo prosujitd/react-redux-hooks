@@ -126,6 +126,7 @@ export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
 
 
 2. productReducer
+```
 import React from "react";
 import {
   FETCH_PRODUCT_FAILURE,
@@ -168,8 +169,9 @@ const productReducer = (state = initialState, action) => {
 };
 
 export default productReducer;
-
+```
 3. rootReducer.js
+```
 import React from "react";
 import { applyMiddleware, combineReducers } from "redux";
 import productReducer from "./product/productReducer";
@@ -181,9 +183,10 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
-
+```
 
 4. store.js
+```
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -198,9 +201,10 @@ const store = createStore(
 )
 
 export default store
-
+```
 
 5. app.js
+```
 import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
 import "./App.css";
 import Cart from "./components/Cart";
@@ -229,8 +233,9 @@ function App() {
 }
 
 export default App;
-
+```
 6. productAction.js
+```
 import axios from "axios";
 import {
   FETCH_PRODUCT_FAILURE,
@@ -274,7 +279,9 @@ export const fetchProducts = () => {
       });
   };
 };
-
+```
 7. actionCreator.js
+```
 export {fetchProducts} from "./product/productAction";
+```
  
