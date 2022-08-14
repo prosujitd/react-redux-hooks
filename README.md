@@ -112,3 +112,165 @@ const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(...middlewares))
 )
+
+
+
+# Code Steps:
+
+1. productTypes
+export const FETCH_PRODUCT_REQUEST = 'FETCH_PRODUCT_REQUEST';
+export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
+export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
+
+2. productReducer
+import React from "react";
+import {
+  FETCH_PRODUCT_FAILURE,
+  FETCH_PRODUCT_REQUEST,
+  FETCH_PRODUCT_SUCCESS,
+} from "./productTypes";
+
+const initialState = {
+  isLoading: false,
+  products: [],
+  error: "",
+};
+
+const productReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_PRODUCT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+        error: "",
+        isLoading: false,
+      };
+    case FETCH_PRODUCT_FAILURE:
+      return {
+        ...state,
+        products: [],
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      return {
+        ...state,
+      };
+  }
+};
+
+export default productReducer;
+
+3. rootReducer.js
+import React from "react";
+import { applyMiddleware, combineReducers } from "redux";
+import productReducer from "./product/productReducer";
+import cartReducer from "./cart/cartReducer";
+
+const rootReducer = combineReducers({
+  product: productReducer,
+  cart: cartReducer
+});
+
+export default rootReducer;
+
+
+4. store.js
+import React from 'react'
+import { applyMiddleware, createStore } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from "redux-thunk";
+import rootReducer from './rootReducer'
+
+const middlewares = [thunk];
+
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(...middlewares))
+)
+
+export default store
+
+
+5. app.js
+import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
+import "./App.css";
+import Cart from "./components/Cart";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Provider store={store}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+          <Footer />
+        </Provider>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+6. productAction.js
+import axios from "axios";
+import {
+  FETCH_PRODUCT_FAILURE,
+  FETCH_PRODUCT_REQUEST,
+  FETCH_PRODUCT_SUCCESS,
+} from "./productTypes";
+
+const fetchProductRequest = () => {
+  return {
+    type: FETCH_PRODUCT_REQUEST,
+  };
+};
+
+const fetchProductSuccess = (products) => {
+  return {
+    type: FETCH_PRODUCT_SUCCESS,
+    payload: products,
+  };
+};
+
+const fetchProductFailure = (error) => {
+  return {
+    type: FETCH_PRODUCT_FAILURE,
+    payload: error,
+  };
+};
+
+export const fetchProducts = () => {
+  return (dispatch) => {
+    
+    dispatch(fetchProductRequest());
+    axios
+      .get("https://fakestoreapi.com/products")
+      .then((res) => {
+        const users = res.data;
+        dispatch(fetchProductSuccess(users));
+      })
+      .catch((error) => {
+        const err = error.message;
+        dispatch(fetchProductFailure(err));
+      });
+  };
+};
+
+7. actionCreator.js
+export {fetchProducts} from "./product/productAction";
