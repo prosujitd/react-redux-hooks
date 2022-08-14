@@ -274,3 +274,4 @@ export const fetchProducts = () => {
 
 7. actionCreator.js
 export {fetchProducts} from "./product/productAction";
+ 
